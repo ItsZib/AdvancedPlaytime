@@ -1,0 +1,45 @@
+{
+  "_comment_database": "--- Database Settings --- | Type: 'sqlite' or 'mysql'.",
+  "database": {
+    "type": "sqlite",
+    "host": "localhost",
+    "port": 3306,
+    "databaseName": "playtime_db",
+    "username": "root",
+    "password": "password",
+    "useSSL": false
+  },
+
+  "_comment_command": "--- Command Settings --- | Name & Aliases (RESTART REQUIRED for these changes).",
+  "command": {
+    "name": "playtime",
+    "description": "Check your playtime stats",
+    "aliases": [
+      "pt",
+      "stat"
+    ]
+  },
+
+  "_comment_periods": "--- Translation (Periods) --- | Customize the arguments for /playtime top <arg>",
+  "periods": {
+    "daily": "daily",
+    "weekly": "weekly",
+    "monthly": "monthly",
+    "all": "all",
+    "reload": "reload"
+  },
+
+  "_comment_messages": "--- Messages --- | Use '&' for colors.",
+  "messages": {
+    "selfCheck": "&dTotal Playtime: &e%time%",
+    "otherCheck": "&d%player%'s Playtime: &e%time%",
+    "leaderboardHeader": "&6--- Playtime Leaderboard (&e%period_name%&6) ---",
+    "leaderboardEntry": "&6#%rank% &e%player% &7: &f%time%",
+    "leaderboardEmpty": "&7No data available yet.",
+    "reloadSuccess": "&aConfiguration reloaded successfully!",
+    "reloadNoPermission": "&cYou do not have permission to reload.",
+    "reloadFailed": "&cFailed to reload config. Check console.",
+    "errorInvalidPeriod": "&cInvalid period. Use: %valid_periods%",
+    "errorConsole": "&cPlayers only."
+  }
+}

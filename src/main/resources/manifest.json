@@ -1,0 +1,17 @@
+{
+  "Group": "Playtime",
+  "Name": "Playtime",
+  "Version": "1.0.0",
+  "Description": "Advanced playtime tracking with leaderboards, database support, and live stats.",
+  "Authors": [
+    {
+      "Name": "Zib"
+    }
+  ],
+  "Website": "https://github.com/263ms/hytale-plugin-template",
+  "Main": "com.zib.playtime.Playtime",
+  "ServerVersion": "*",
+  "Dependencies": {},
+  "OptionalDependencies": {},
+  "DisabledByDefault": false
+}
