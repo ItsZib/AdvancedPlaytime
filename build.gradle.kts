@@ -14,8 +14,9 @@ dependencies {
     // 1. Hytale Server API (Local File)
     compileOnly(files("libs/hytale-server.jar"))
 
-    // 2. Database Drivers (HikariCP + SQLite)
+    // 2. Database Drivers (HikariCP + MySQL + SQLite)
     implementation("com.zaxxer:HikariCP:5.1.0")
+    implementation("com.mysql:mysql-connector-j:8.4.0")
     implementation("org.xerial:sqlite-jdbc:3.46.0.0")
 
     // 3. Common Utils

@@ -1,27 +1,32 @@
 package com.zib.playtime;
 
-import com.zib.playtime.database.DatabaseManager;
-import com.zib.playtime.listeners.SessionListener;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
+
+import com.zib.playtime.database.DatabaseManager;
+import com.zib.playtime.listeners.SessionListener;
 
 public class PlaytimeService {
 
     private final DatabaseManager db;
+    private final boolean isMySQL;
 
     public PlaytimeService(DatabaseManager db) {
         this.db = db;
+        this.isMySQL = db.isMySQL();
     }
 
     public void saveSession(String uuid, String name, long start, long duration) {
         try (Connection conn = db.getConnection()) {
             PreparedStatement ps = conn.prepareStatement(
-                    "INSERT INTO playtime_sessions (uuid, username, start_time, duration) VALUES (?, ?, ?, ?)"
+                    "INSERT INTO playtime_sessions (uuid, username, start_time, duration, session_date) VALUES (?, ?, ?, ?, " + (isMySQL ? "CURDATE()" : "date('now')") + ")"
             );
             ps.setString(1, uuid);
             ps.setString(2, name);
@@ -111,12 +116,22 @@ public class PlaytimeService {
     }
 
     private String getDateFilter(String type) {
-        if (type.equalsIgnoreCase("daily")) {
-            return "AND session_date = date('now') ";
-        } else if (type.equalsIgnoreCase("weekly")) {
-            return "AND session_date >= date('now', '-7 days') ";
-        } else if (type.equalsIgnoreCase("monthly")) {
-            return "AND session_date >= date('now', '-1 month') ";
+        if (isMySQL) {
+            if (type.equalsIgnoreCase("daily")) {
+                return "AND session_date = CURDATE() ";
+            } else if (type.equalsIgnoreCase("weekly")) {
+                return "AND session_date >= DATE_SUB(CURDATE(), INTERVAL 7 DAY) ";
+            } else if (type.equalsIgnoreCase("monthly")) {
+                return "AND session_date >= DATE_SUB(CURDATE(), INTERVAL 1 MONTH) ";
+            }
+        } else {
+            if (type.equalsIgnoreCase("daily")) {
+                return "AND session_date = date('now') ";
+            } else if (type.equalsIgnoreCase("weekly")) {
+                return "AND session_date >= date('now', '-7 days') ";
+            } else if (type.equalsIgnoreCase("monthly")) {
+                return "AND session_date >= date('now', '-1 month') ";
+            }
         }
         return "";
     }
