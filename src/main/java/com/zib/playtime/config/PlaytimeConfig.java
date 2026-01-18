@@ -1,5 +1,6 @@
 package com.zib.playtime.config;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -10,6 +11,7 @@ public class PlaytimeConfig {
     public PeriodSettings periods = new PeriodSettings();
     public MessageSettings messages = new MessageSettings();
     public GuiSettings gui = new GuiSettings();
+    public List<Reward> rewards = new ArrayList<>();
 
     public void setDefaults() {
         if (database == null) database = new DatabaseSettings();
@@ -17,6 +19,7 @@ public class PlaytimeConfig {
         if (periods == null) periods = new PeriodSettings();
         if (messages == null) messages = new MessageSettings();
         if (gui == null) gui = new GuiSettings();
+        if (rewards == null) rewards = new ArrayList<>();
 
         if (command.topStyle == null) command.topStyle = "text";
         if (command.aliases == null) command.aliases = Arrays.asList("pt", "play", "time");
@@ -62,6 +65,18 @@ public class PlaytimeConfig {
         public String errorInvalidPeriod = "&cInvalid period. Use: %valid_periods%";
         public String errorConsole = "&cPlayers only.";
         public String noPermission = "&cYou do not have permission to use this command.";
+
+        public String rewardAdded = "&aReward '%id%' added successfully!";
+        public String rewardRemoved = "&aReward '%id%' removed successfully!";
+        public String rewardNotFound = "&cReward '%id%' not found.";
+        public String rewardBroadcast = "&6%player% &ehas played for &6%time% &eand claimed the &6%reward% &ereward!";
+
+        // NEW: List Messages
+        public String rewardListHeader = "&6--- Server Rewards ---";
+        public String rewardListEntry = "&e%id% &7(%period%): &f%status%";
+        public String statusClaimed = "&a[CLAIMED]";
+        public String statusAvailable = "&e[AVAILABLE]";
+        public String statusLocked = "&c[LOCKED]";
     }
 
     public static class GuiSettings {
